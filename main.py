@@ -23,6 +23,8 @@ from FuncAux.login import validar_usuario, iniciar_sesion
 from Usuarios.crear import crear_usuario
 from Usuarios.modificar import modificar_usuario
 
+#=======Funciones auxiliares========
+
 def pedir_entero(mensaje):
     '''Pide un número entero y repite hasta que el usuario ingrese uno válido.'''
     while True:
@@ -31,39 +33,27 @@ def pedir_entero(mensaje):
         except ValueError:
             print("Ingrese un número válido, por favor.")
 
-#Funciones de Menu
+#=========Funciones de Menu==========
 
 def gestion_inquilinos():
     '''Menú principal de gestión de inquilinos.'''
     opciones = {
         "1": ("Crear Inquilinos", crear_inquilinos),
-        "2": ("Mostrar Inquilinos", lambda: mostrar_matriz_3(encabezado_inquilinos, matriz_inquilinos[0:])),
+        "2": ("Mostrar Inquilinos", lambda: mostrar_matriz(encabezado_inquilinos, matriz_inquilinos[0:])),
         "3": ("Modificar Inquilinos", lambda: modificar_inquilino(matriz_inquilinos[0:])),
         "4": ("Buscar Inquilinos", lambda: busqueda_inquilino(matriz_inquilinos)),
     }
     mostrar_menu(opciones, "Inquilinos")
 
 def gestion_propiedades():
-    print("----- Gestión de Propiedades -----")
-    print("1. Crear Propiedades")
-    print("2. Mostrar Propiedades")
-    print("3. Modificar Propiedades")
-    print("4. Buscar Propiedades")
-    opcion = input("Seleccione una opción (1-4): ")
-    if opcion == '1':
-        cant_propiedades = int(input("¿Cuántas propiedades desea crear? "))
-        nuevas_propiedades = crear_matriz_propiedades(cant_propiedades)
-        matriz_propiedades.extend(nuevas_propiedades)
-        print("Propiedades creadas exitosamente.")
-    elif opcion == '2':
-        mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:], pos_mil={3})
-    elif opcion == '3':
-        modificar_propiedad(matriz_propiedades[0:])
-    elif opcion == '4':
-        busqueda_propiedad(matriz_propiedades[0:])
-    else:
-        print("Opción no válida. Intente nuevamente.")
-        gestion_propiedades()
+    '''Menú principal de gestión de propiedades.'''
+    opciones = {
+        "1": ("Crear Propiedades", crear_propiedades),
+        "2": ("Mostrar Propiedades", lambda: mostrar_matriz_3(encabezados_propiedades, matriz_propiedades[0:])),
+        "3": ("Modificar Propiedades", lambda: modificar_propiedad(matriz_propiedades[0:])),
+        "4": ("Buscar Propiedades", lambda: busqueda_propiedad(matriz_propiedades[0:])),
+    }
+    mostrar_menu(opciones, "Propiedades")
 
 def gestion_contratos():
     print("----- Gestión de Contratos -----")
