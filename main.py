@@ -24,6 +24,7 @@ from Usuarios.crear import crear_usuario
 from Usuarios.modificar import modificar_usuario
 
 #=======Funciones auxiliares========
+"""cosas genéricas que no dependen del dominio, ej: pedir_entero, formateos, validaciones comunes) """
 
 def pedir_entero(mensaje):
     '''Pide un número entero y repite hasta que el usuario ingrese uno válido.'''
@@ -32,6 +33,37 @@ def pedir_entero(mensaje):
             return int(input(mensaje))
         except ValueError:
             print("Ingrese un número válido, por favor.")
+
+#=======Funciones para crear según seccion (acciones sobre datos)========
+
+def crear_inquilinos():
+    '''Pide cantidad y agrega nuevos inquilinos a la matriz.'''
+    cantidad = pedir_entero("¿Cuántos inquilinos desea crear? ")
+    nuevos = crear_matriz_inquilinos(cantidad, matriz_inquilinos)
+    matriz_inquilinos.extend(nuevos)
+    print("Inquilinos creados exitosamente.")
+
+def crear_propiedades():
+    '''Pide cantidad y agrega nuevas propiedades a la matriz.'''
+    cant_propiedades = pedir_entero("¿Cuántas propiedades desea crear? ")
+    nuevas_propiedades = crear_matriz_propiedades(cant_propiedades)
+    matriz_propiedades.extend(nuevas_propiedades)
+    print("Propiedades creadas exitosamente.")
+
+def crear_contratos():
+    '''Pide cantidad y agrega nuevos contratos a la matriz.'''
+    cant_contratos = pedir_entero("¿Cuántos contratos desea crear? ")
+    nuevos_contratos = crear_matriz_contrato(cant_contratos)
+    matriz_contratos.extend(nuevos_contratos)
+    print("Contratos creados exitosamente.")
+
+def crear_pago():
+    '''Pide cantidad y agrega nuevos pagos a la matriz.'''
+    cant_pagos = pedir_entero("¿Cuántos pagos desea crear? ")
+    nuevos_pagos = crear_matriz_pagos(cant_pagos)
+    matriz_pagos.extend(nuevos_pagos)
+    print("Pagos creados exitosamente.")
+
 
 #=========Funciones de Menu==========
 
