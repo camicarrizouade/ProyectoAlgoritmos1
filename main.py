@@ -42,6 +42,7 @@ def gestion_inquilinos():
         "2": ("Mostrar Inquilinos", lambda: mostrar_matriz(encabezado_inquilinos, matriz_inquilinos[0:])),
         "3": ("Modificar Inquilinos", lambda: modificar_inquilino(matriz_inquilinos[0:])),
         "4": ("Buscar Inquilinos", lambda: busqueda_inquilino(matriz_inquilinos)),
+        "5":("Volver al Menú principal.", menu()),
     }
     mostrar_menu(opciones, "Inquilinos")
 
@@ -49,30 +50,22 @@ def gestion_propiedades():
     '''Menú principal de gestión de propiedades.'''
     opciones = {
         "1": ("Crear Propiedades", crear_propiedades),
-        "2": ("Mostrar Propiedades", lambda: mostrar_matriz_3(encabezados_propiedades, matriz_propiedades[0:])),
+        "2": ("Mostrar Propiedades", lambda: mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:])),
         "3": ("Modificar Propiedades", lambda: modificar_propiedad(matriz_propiedades[0:])),
         "4": ("Buscar Propiedades", lambda: busqueda_propiedad(matriz_propiedades[0:])),
+        "5":("Volver al Menú principal.", menu()),
     }
     mostrar_menu(opciones, "Propiedades")
 
 def gestion_contratos():
-    print("----- Gestión de Contratos -----")
-    print("1. Crear Contratos")
-    print("2. Mostrar Contratos")
-    print("3. Modificar Contratos")
-    opcion = input("Seleccione una opción (1-3): ")
-    if opcion == '1':
-        cant_contratos = int(input("¿Cuántos contratos desea crear? "))
-        nuevos_contratos = crear_matriz_contrato(cant_contratos)
-        matriz_contratos.extend(nuevos_contratos)
-        print("Contratos creados exitosamente.")
-    elif opcion == '2':
-        mostrar_matriz(encabezados_contratos, matriz_contratos[0:], pos_mil={5})
-    elif opcion == '3':
-        modificar_contrato(matriz_contratos[0:])
-    else:
-        print("Opción no válida. Intente nuevamente.")
-        gestion_contratos()
+    opciones = {
+        "1": ("Crear Contratos", crear_contratos),
+        "2": ("Mostrar Contratos", lambda: mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:])),
+        "3": ("Modificar Contratos", lambda: modificar_contrato(matriz_contratos[0:])),
+        "4": ("Buscar Contratos", lambda: busqueda_contratos(matriz_propiedades[0:])),
+        "5":("Volver al Menú principal.", menu()),
+    }
+    mostrar_menu(opciones, "Contratos")
 
 def gestion_pagos():
     print("----- Gestión de Pagos -----")
