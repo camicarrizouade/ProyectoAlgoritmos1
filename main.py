@@ -58,6 +58,7 @@ def gestion_propiedades():
     mostrar_menu(opciones, "Propiedades")
 
 def gestion_contratos():
+    """ Menú principal de gestión de contratos."""
     opciones = {
         "1": ("Crear Contratos", crear_contratos),
         "2": ("Mostrar Contratos", lambda: mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:])),
@@ -68,6 +69,7 @@ def gestion_contratos():
     mostrar_menu(opciones, "Contratos")
 
 def gestion_pagos():
+    """ Menú principal de gestión de pagos."""
     opciones = {
         "1": ("Crear Pagos", crear_pagos),
         "2": ("Mostrar Pagos", lambda: mostrar_matriz(encabezados_pagos, matriz_pagos[0:],pos_mil={3})),
@@ -78,17 +80,12 @@ def gestion_pagos():
 
 
 def gestion_usuarios():
-    print("----- Gestión de Usuarios -----")
-    print("1. Crear Usuario")
-    print("2. Modificar Usuario")
-    opcion = input("Seleccione una opción (1-2): ")
-    if opcion == '1':
-        crear_usuario()
-    elif opcion == '2':
-        modificar_usuario()
-    else:
-        print("Opción no válida. Intente nuevamente.")
-        gestion_usuarios()
+    """ Menú principal de gestión de usuarios."""
+    opciones = {
+        "1": ("Crear Usuarios", crear_usuario),
+        "2": ("Modificar Usuarios", modificar_usuario)
+    }
+    mostrar_menu(opciones, "Usuarios")
 
 #Programa principal
 
