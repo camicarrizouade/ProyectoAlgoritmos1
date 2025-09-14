@@ -35,14 +35,34 @@ def pedir_entero(mensaje):
 
 #=========Funciones de Menu==========
 
+def mostrar_menu(opciones, titulo):
+    '''Devuelve True si el usuario eligió salir/volver; False si sigue en el menú.'''
+    while True:
+        print(f"\n----- Menú de Gestión de {titulo} -----")
+        for k, (texto, _) in opciones.items():
+            print(f"{k}. {texto}")
+
+        opcion_salida = str(len(opciones) + 1)
+        print(f"{opcion_salida}. {'Salir' if titulo == 'Alquileres' else 'Volver al menú principal'}")
+
+        op = input("Seleccione una opción: ").strip()
+        if op == opcion_salida:
+            if titulo == "Alquileres":
+                print("Saliendo del programa...")
+            return True  # <- señal de salida/volver
+        accion = opciones.get(op)
+        if accion:
+            accion[1]()
+        else:
+            print("Opción no válida, intente de nuevo.")
+
 def gestion_inquilinos():
     '''Menú principal de gestión de inquilinos.'''
     opciones = {
         "1": ("Crear Inquilinos", crear_inquilinos),
         "2": ("Mostrar Inquilinos", lambda: mostrar_matriz(encabezado_inquilinos, matriz_inquilinos[0:])),
         "3": ("Modificar Inquilinos", lambda: modificar_inquilino(matriz_inquilinos[0:])),
-        "4": ("Buscar Inquilinos", lambda: busqueda_inquilino(matriz_inquilinos)),
-        "5":("Volver al Menú principal.", menu()),
+        "4": ("Buscar Inquilinos", lambda: busqueda_inquilino(matriz_inquilinos))
     }
     mostrar_menu(opciones, "Inquilinos")
 
@@ -52,8 +72,7 @@ def gestion_propiedades():
         "1": ("Crear Propiedades", crear_propiedades),
         "2": ("Mostrar Propiedades", lambda: mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:])),
         "3": ("Modificar Propiedades", lambda: modificar_propiedad(matriz_propiedades[0:])),
-        "4": ("Buscar Propiedades", lambda: busqueda_propiedad(matriz_propiedades[0:])),
-        "5":("Volver al Menú principal.", menu()),
+        "4": ("Buscar Propiedades", lambda: busqueda_propiedad(matriz_propiedades[0:]))
     }
     mostrar_menu(opciones, "Propiedades")
 
@@ -63,8 +82,7 @@ def gestion_contratos():
         "1": ("Crear Contratos", crear_contratos),
         "2": ("Mostrar Contratos", lambda: mostrar_matriz(encabezados_propiedades, matriz_propiedades[0:])),
         "3": ("Modificar Contratos", lambda: modificar_contrato(matriz_contratos[0:])),
-        "4": ("Buscar Contratos", lambda: busqueda_contratos(matriz_propiedades[0:])),
-        "5":("Volver al Menú principal.", menu()),
+        "4": ("Buscar Contratos", lambda: busqueda_contratos(matriz_propiedades[0:]))
     }
     mostrar_menu(opciones, "Contratos")
 
@@ -73,8 +91,7 @@ def gestion_pagos():
     opciones = {
         "1": ("Crear Pagos", crear_pagos),
         "2": ("Mostrar Pagos", lambda: mostrar_matriz(encabezados_pagos, matriz_pagos[0:],pos_mil={3})),
-        "3": ("Modificar Pagos", lambda: modificar_pago(matriz_pagos[0:])),
-        "4":("Volver al Menú principal.", menu()),
+        "3": ("Modificar Pagos", lambda: modificar_pago(matriz_pagos[0:]))
     }
     mostrar_menu(opciones, "Pagos")
 
@@ -90,30 +107,17 @@ def gestion_usuarios():
 #Programa principal
 
 def menu():
+    opciones_menu = {
+        "1": ("Gestión de Inquilinos",  gestion_inquilinos),
+        "2": ("Gestión de Propiedades", gestion_propiedades),
+        "3": ("Gestión de Contratos",   gestion_contratos),
+        "4": ("Gestión de Pagos",       gestion_pagos),
+        "5": ("Gestión de Usuarios",    gestion_usuarios),
+    }
     while True:
-        print("----- Menú de Gestión de Alquileres -----")
-        print("1. Gestión de Inquilinos")
-        print("2. Gestión de Propiedades")
-        print("3. Gestión de Contratos")
-        print("4. Gestión de Pagos")
-        print("5. Gestión de Usuarios")
-        print("6. Salir")
-        opcion = input("Seleccione una opción (1-6): ")
-        if opcion == '1':
-            gestion_inqiuilinos()
-        elif opcion == '2':
-            gestion_propiedades()
-        elif opcion == '3':
-            gestion_contratos()
-        elif opcion == '4':
-            gestion_pagos()
-        elif opcion == '5':
-            gestion_usuarios()
-        elif opcion == '6':
-            print("Saliendo del programa...")
+        salir = mostrar_menu(opciones_menu, "Alquileres")
+        if salir:  # usuario eligió "Salir"
             break
-        else:
-            print("Opción no válida. Intente nuevamente.")
 
 def iniciar_sistema():
     print("----- Bienvenido al sistema -----")
