@@ -22,29 +22,26 @@ from FuncAux.login import validar_usuario, iniciar_sesion
 
 from Usuarios.crear import crear_usuario
 from Usuarios.modificar import modificar_usuario
+
+def pedir_entero(mensaje):
+    '''Pide un número entero y repite hasta que el usuario ingrese uno válido.'''
+    while True:
+        try:
+            return int(input(mensaje))
+        except ValueError:
+            print("Ingrese un número válido, por favor.")
+
 #Funciones de Menu
 
-def gestion_inqiuilinos():
-    print("----- Gestión de Inquilinos -----")
-    print("1. Crear Inquilinos")
-    print("2. Mostrar Inquilinos")
-    print("3. Modificar Inquilinos")
-    print("4. Buscar Inquilinos")
-    opcion = input("Seleccione una opción (1-4): ")
-    if opcion == '1':
-        cant_inquilinos = int(input("¿Cuántos inquilinos desea crear? "))
-        nuevos_inquilinos = crear_matriz_inquilinos(cant_inquilinos)
-        matriz_inquilinos.extend(nuevos_inquilinos)
-        print("Inquilinos creados exitosamente.")
-    elif opcion == '2':
-        mostrar_matriz(encabezado_inquilinos, matriz_inquilinos[0:])
-    elif opcion == '3':
-        modificar_inquilino(matriz_inquilinos[0:])
-    elif opcion == '4':
-        busqueda_inquilino(matriz_inquilinos)
-    else:
-        print("Opción no válida. Intente nuevamente.")
-        gestion_inqiuilinos()
+def gestion_inquilinos():
+    '''Menú principal de gestión de inquilinos.'''
+    opciones = {
+        "1": ("Crear Inquilinos", crear_inquilinos),
+        "2": ("Mostrar Inquilinos", lambda: mostrar_matriz_3(encabezado_inquilinos, matriz_inquilinos[0:])),
+        "3": ("Modificar Inquilinos", lambda: modificar_inquilino(matriz_inquilinos[0:])),
+        "4": ("Buscar Inquilinos", lambda: busqueda_inquilino(matriz_inquilinos)),
+    }
+    mostrar_menu(opciones, "Inquilinos")
 
 def gestion_propiedades():
     print("----- Gestión de Propiedades -----")
