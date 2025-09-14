@@ -68,24 +68,14 @@ def gestion_contratos():
     mostrar_menu(opciones, "Contratos")
 
 def gestion_pagos():
-    print("----- Gestión de Pagos -----")
-    print("1. Crear Pagos")
-    print("2. Mostrar Pagos")
-    print("3. Modificar Pagos")
-    opcion = input("Seleccione una opción (1-3): ")
-    if opcion == '1':
-        cant_pagos = int(input("¿Cuántos pagos desea crear? "))
-        nuevos_pagos = crear_matriz_pagos(cant_pagos)
-        matriz_pagos.extend(nuevos_pagos)
-        print("Pagos creados exitosamente.")
+    opciones = {
+        "1": ("Crear Pagos", crear_pagos),
+        "2": ("Mostrar Pagos", lambda: mostrar_matriz(encabezados_pagos, matriz_pagos[0:],pos_mil={3})),
+        "3": ("Modificar Pagos", lambda: modificar_pago(matriz_pagos[0:])),
+        "4":("Volver al Menú principal.", menu()),
+    }
+    mostrar_menu(opciones, "Pagos")
 
-    elif opcion == '2':
-        mostrar_matriz(encabezados_pagos, matriz_pagos[0:],pos_mil={3})
-    elif opcion == '3':
-        modificar_pago(matriz_pagos[0:])
-    else:
-        print("Opción no válida. Intente nuevamente.")
-        gestion_pagos()
 
 def gestion_usuarios():
     print("----- Gestión de Usuarios -----")
